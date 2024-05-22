@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import "@adimis/react-formix/dist/style.css";
 
@@ -10,7 +11,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 

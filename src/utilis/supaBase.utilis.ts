@@ -2,14 +2,14 @@ import { useCallback } from "react";
 import supabase from "../config/supabaseClient";
 import { SignUp } from "../types/types";
 
-const getSupabaseBucket = useCallback(async () => {
+const getSupabaseBucket = async () => {
     const { data, error } = await supabase
       .storage
       .getBucket('file_bucket');
     return data;
-}, []);
+}
 
-const getSupaBaseTableData = useCallback(async () => {
+const getSupaBaseTableData = async () => {
     const { data, error } = await supabase
       .from("adimis_react_form")
       .select();
@@ -20,11 +20,11 @@ const getSupaBaseTableData = useCallback(async () => {
     if (error) {
       console.log(error)
     }
-},[])
+}
 
 
 
-const handleSupaBaseDataSubmit = useCallback(async(values : SignUp) => {
+const handleSupaBaseDataSubmit = async(values : SignUp) => {
     console.log(
         "On Submit Example Form Response: ",
         JSON.stringify(values, null, 4)
@@ -50,7 +50,7 @@ const handleSupaBaseDataSubmit = useCallback(async(values : SignUp) => {
       if (data) {
         console.log("Data: ", data)
       }
-},[])
+}
 
 export { getSupabaseBucket, getSupaBaseTableData, handleSupaBaseDataSubmit };
 

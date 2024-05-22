@@ -20,36 +20,95 @@ import Gender from "../../types/enum";
 import { SignUp } from "../../types/types";
 import "@adimis/react-formix/dist/style.css";
 import { handleSupaBaseDataSubmit } from "../../utilis/supaBase.utilis";
+import { TextField, MenuItem, Select, InputLabel } from "@mui/material";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+const gender = ["Male", "Female", "Other"];
+const year = [2020, 2021, 2022, 2023, 2024]
+
+const yearSchema = z.number().int().min(2020, { message: "Year must be no earlier than 2020" }).max(2024, { message: "Year must be no later than 2024" });
 
 
 const Home = () => {
     const handleInputRender = ({ formDisabled }: any, formItem: any, formMethods: any, submitButtonLoading: boolean | undefined) => {
         return (
-            <div className="flex  justify-between items-start w-full">
-                <label className="flex items-center w-full">
-                    <div className="mr-2">{formItem.label}</div>
-                    <div className="flex-grow">
-                        <input
-                            type={formItem.type}
-                            id={formItem.key}
-                            disabled={formDisabled || submitButtonLoading}
-                            style={{
-                                width: "100%",
-                                height: "10px",
-                                border: "1px solid #ccc",
-                                borderRadius: "5px",
-                                padding: "10px",
-                                margin: "5px 0",
-                                color: "black"
-                            }}
-                            {...formMethods.register(formItem.key)}
-                        />
-                    </div>
-                </label>
+            <div className="flex  justify-between items-center w-full">
+                <div className="mr-2 justify-center">{formItem.label}</div>
+                <div className="flex-grow">
+                    <TextField
+                        id={formItem.key}
+                        disabled={formDisabled || submitButtonLoading}
+                        {...formMethods.register(formItem.key)}
+                        className="w-full"
+                    />
+                </div>
             </div>
         )
 
     }
+
+    const handleSelectFieldRender = ({ formDisabled }: any, formItem: any, formMethods: any, submitButtonLoading: boolean | undefined) => {
+        const handleChange = (event: any) => {
+            console.log("event.target.value", event.target.value);
+            formMethods.setValue(formItem.key, event.target.value);
+        };
+
+        return (
+            <div className="flex justify-center items-center w-full">
+                <div className="mr-2 justify-center">{formItem.label}</div>
+
+                <Select
+                    id={formItem.key}
+                    disabled={formDisabled || submitButtonLoading}
+                    value={formMethods.watch(formItem.key)} // Use formMethods to get the current value
+                    label={formItem.label}
+                    onChange={handleChange}
+                    className="w-full"
+                    {...formMethods.register(formItem.key)}
+                >
+                    {formItem.key === "gender" ? gender.map((each) => {
+                        return (
+
+                            <MenuItem value={each} key={each}>{each}</MenuItem>
+
+                        )
+                    }) : year.map((each) => {
+                        return (
+                            <MenuItem value={each} key={each}>{each}</MenuItem>
+                        )
+                    })
+                    }
+                </Select>
+
+            </div>
+        );
+    };
+
+    const handleDatePickerRender = ({ formDisabled }: any, formItem: any, formMethods: any, submitButtonLoading: boolean | undefined) => {
+        if (!formItem || !formMethods || !formMethods.register) {
+            console.error("Invalid formItem or formMethods:", { formItem, formMethods });
+            return null;
+        }
+        const registerProps = formMethods.register(formItem.key);
+
+        if (!registerProps) {
+            console.error("Register props are undefined for key:", formItem.key);
+            return null;
+        }
+        return (
+            <div className="flex justify-center items-center w-full">
+                <div className="mr-2 justify-center">{formItem.label}</div>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs} key={formItem.key}>
+                    <DatePicker {...registerProps} className="w-full flex-grow" disabled={formDisabled || submitButtonLoading} />
+                </LocalizationProvider>
+            </div>
+
+        )
+    }
+
 
     const handleFileChange = (event: any, formMethods: any) => {
         console.log(event.target.files[0]);
@@ -65,20 +124,12 @@ const Home = () => {
                 <label className="flex items-center w-full">
                     <div className="mr-2">{formItem.label}</div>
                     <div className="flex-grow">
-                        <input
+                        <TextField
                             type="file"
                             id={formItem.key}
                             disabled={formDisabled || submitButtonLoading}
                             onChange={(event) => handleFileChange(event, formMethods)}
-                            style={{
-                                width: "100%",
-                                height: "10px",
-                                border: "1px solid #ccc",
-                                borderRadius: "5px",
-                                padding: "10px",
-                                margin: "5px 0",
-                                color: "black"
-                            }}
+                            className="w-full"
                         // {...formMethods.register(formItem.key)}
                         />
                     </div>
@@ -88,7 +139,7 @@ const Home = () => {
     }
 
     const schemaFormProps: ISchemaFormProps<SignUp> = {
-        formLabel: "Example Barebone Form",
+        formLabel: "User Log-In Form",
         formSlug: "example-barebone-form",
         //persistFormResponse: "localStorage",
         devTools: true,
@@ -186,8 +237,8 @@ const Home = () => {
                 key: "gender",
                 label: "Gender",
                 description: "Select your gender.",
-                type: "text",
-                defaultValue: Gender.Male.toString(),
+                type: "select",
+                defaultValue: "",
                 validations: z.enum([Gender.Male, Gender.Female, Gender.Other], {
                     invalid_type_error: 'Gender must be one of Male, Female, or Other'
                 }),
@@ -197,7 +248,7 @@ const Home = () => {
                     formMethods,
                     submitButtonLoading,
                 }) => (
-                    handleInputRender(formDisabled, formItem, formMethods, submitButtonLoading)
+                    handleSelectFieldRender(formDisabled, formItem, formMethods, submitButtonLoading)
 
                 ),
 
@@ -215,6 +266,21 @@ const Home = () => {
                 }) => (
                     handleFileRender(formDisabled, formItem, formMethods, submitButtonLoading)
                 )
+            },
+            {
+                key: "date",
+                label: "Date",
+                description: "Enter Your Graduation Date",
+                type: "date",
+                defaultValue: "",
+                validations: z.date(),
+                render: ({ formDisabled,
+                    formItem,
+                    formMethods,
+                    submitButtonLoading, }) => (
+                    handleDatePickerRender(formDisabled, formItem, formMethods, submitButtonLoading)
+                )
+
             },
             {
                 key: "password",
@@ -251,6 +317,24 @@ const Home = () => {
                     handleInputRender(formDisabled, formItem, formMethods, submitButtonLoading)
                 ),
             },
+            {
+                key: "year",
+                label: "Year",
+                description: "Select your graduation year.",
+                type: "select",
+                defaultValue: "",
+                validations: yearSchema,
+                render: ({
+                    formDisabled,
+                    formItem,
+                    formMethods,
+                    submitButtonLoading,
+                }) => (
+                    handleSelectFieldRender(formDisabled, formItem, formMethods, submitButtonLoading)
+
+                ),
+
+            }
         ],
         defaultValues: {
             email: "adimis.ai.001@gmail.com",
@@ -267,10 +351,10 @@ const Home = () => {
     };
 
     return (
-        <ThemeProvider defaultTheme="dark">
+        <ThemeProvider>
             <FormixFormProvider {...schemaFormProps}>
                 <FormBody>
-                    <FormHeader>
+                    <FormHeader className="text-center">
                         <FormTitle />
                         <FormDescription />
                     </FormHeader>
