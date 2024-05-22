@@ -1,3 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	body {
+		@apply font-quicksand;
+	}
+}
+
+.home {
+	@apply mx-0 my-auto p-4;
+}
+
+.form-label {
+	@apply text-lg font-bold text-btntextColor;
+}
+
+.submit-btn {
+	@apply bg-buttonBgColor rounded-[10px] border border-buttonBorder font-bold text-lg p-3 text-btntextColor w-[150px];
+}

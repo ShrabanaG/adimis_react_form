@@ -9,6 +9,14 @@ export default {
 			screens: {
 				"2xl": "1400px"
 			}
+		},
+		fontFamily: {
+			quicksand: ["Quicksand", "sans-serif"]
+		},
+		colors: {
+			btntextColor: "#28a745",
+			buttonBorder: "#a5d6a7",
+			buttonBgColor: "rgba(40, 167, 69, 0.12549019607843137)"
 		}
 	}
 };
