@@ -128,7 +128,6 @@ const Home = () => {
 					id={formItem.key}
 					disabled={formDisabled || submitButtonLoading}
 					value={formMethods.watch(formItem.key)} // Use formMethods to get the current value
-					label={formItem.label}
 					onChange={handleChange}
 					className="w-full"
 					{...formMethods.register(formItem.key)}
@@ -236,7 +235,7 @@ const Home = () => {
 			{
 				key: "username",
 				label: "Username",
-				description: "Enter your desired username.",
+				// description: "Enter your desired username.",
 				autoComplete: "username",
 				type: "text",
 				placeholder: "Your username",
