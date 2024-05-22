@@ -1,46 +1,137 @@
-# Getting Started with Create React App
+## **1\. Folder Structure**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+\-vscode
 
-## Available Scripts
+\--settings.json -> IDE level settings
 
-In the project directory, you can run:
+\-public -> boilerplate public folder that comes with create-react-app
 
-### `npm start`
+\-src
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+\--components
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+\---home
 
-### `npm test`
+\----Home.tsx -> Home component of the react app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+\----Home.test.tsx -> Test file for Home.tsx
 
-### `npm run build`
+\--config
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+\---supabaseClient.ts -> supabase client configuration
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+\--types
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+\---enum.ts -> enum declaration
 
-### `npm run eject`
+\---types.ts -> type declaration
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+\--utils
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+\---supabase.utils.ts -> supabse helper functions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+\--App.css -> Styles
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+\--App.test.tsx -> Test file for App.tsx
 
-## Learn More
+\--index.css -> Test file for index.css
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+\--index.tsx -> Entry point of react app
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+\--react-app--env.d.ts -> boilerplate from create-react-app
+
+\--reportWebVitals.ts -> boilerplate from create-react-app
+
+\--setupTests.ts -> boilerplate from create-react-app
+
+\-env -> environment file
+
+\-.eslintrc.js -> eslint configuration
+
+\-.prettierrc.json -> prettier configuration
+
+\-README.md -> readme file
+
+\-package-lock.json -> package.json lockfile
+
+\-package.json -> package file
+
+\-tailwind.config.js -> tailwind configuration file
+
+\-tsconfig.json -> ts config file
+
+## **2\. Supabase Services Used**
+
+(a) Bucket -> for storing files
+
+(b) Database (PostgreSQL) -> for storing user data
+
+## 3\. React Libraries used
+
+"@adimis/react-formix": "^0.0.9", -> for dynamic form handling
+
+"@emotion/react": "^11.11.4", -> Material UI dependency
+
+"@emotion/styled": "^11.11.5" -> Material UI dependency
+
+"@mui/lab": "^5.0.0-alpha.170", -> Material UI dependency
+
+"@mui/material": "^5.15.18", -> Material UI dependency
+
+"@mui/styled-engine-sc": "^6.0.0-alpha.18", -> Material UI dependency
+
+"@mui/x-date-pickers": "^7.5.0", -> Material UI dependency
+
+"@supabase/supabase-js": "^2.43.2", -> Supabase library
+
+"@testing-library/jest-dom": "^5.17.0", -> Jest testing library
+
+"@testing-library/user-event": "^13.5.0", -> user event for testing
+
+"@types/jest": "^27.5.2", -> Jest testing library
+
+"@types/node": "^16.18.97", -> types file
+
+"@types/react": "^18.3.2", -> types file
+
+"@types/react-dom": "^18.3.0", -> react-dom
+
+"dayjs": "^1.11.11", -> for handling dates
+
+"react": "^18.3.1", -> React library
+
+"react-dom": "^18.3.1", -> React DOM library
+
+"react-hook-form": "^7.51.4", -> React hook form library
+
+"react-router-dom": "^6.23.1", -> React router dom
+
+"react-scripts": "5.0.1", -> React scripts library
+
+"styled-components": "^6.1.11", -> styling in JS
+
+"tailwindcss-animate": "^1.0.7", -> tailwind library
+
+"typescript": "^4.9.5", -> typescript
+
+"web-vitals": "^2.1.4", -> web vitals library
+
+"zod": "^3.23.8" -> for schema validation
+
+## **3\. Code linting and Quality**
+
+(a) EsLint -> For code linting and quality
+
+(b) Prettier -> For code styling
+
+## **4\. Technical Features**
+
+(a) Integration with Supabase
+
+(b) Insertion into PostgreSQL with Supabase
+
+(c) Bucket service from Supabase
+
+(d) Update into PostgreSQL with Supabase
+
+(e) Form Display with validations as per requirement
